@@ -11,6 +11,8 @@ class ParallaxBackGround : MonoBehaviour {
     }
 
     void Update() {
+        if (GameManager.Instance.GetGameOver())
+            return;
         ParallaxScroll();
     }
 

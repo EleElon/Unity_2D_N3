@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 3044942980544233398}
   - component: {fileID: 4092411825810912296}
   - component: {fileID: 2596543403526342799}
-  - component: {fileID: 787596536414982113}
+  - component: {fileID: 7737126958251810804}
+  - component: {fileID: 4696826024577264254}
   m_Layer: 0
   m_Name: EagleModel
   m_TagString: Obstacles
@@ -180,7 +181,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.06120038, y: 0.03060019}
   m_Radius: 1.1894494
---- !u!114 &787596536414982113
+--- !u!114 &7737126958251810804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,6 +190,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4263780777660992006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90fab7a226dcabb4892eecda2142857e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a1ee0288ed47df4e98171c016e39e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4696826024577264254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4263780777660992006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f1a165a77ecf6043afbf274bb70c5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

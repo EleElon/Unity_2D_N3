@@ -6,28 +6,38 @@ class Spawner : MonoBehaviour {
     [SerializeField] Transform highPos;
     [SerializeField] Transform lowPos;
 
-    float nextTimeToSpawn;
+    float nextTimeToSpawn = 2f;
     float spawnRate = 2f;
 
     void Update() {
+        if (GameManager.Instance.GetGameOver())
+            return;
         SetTimeSpawn();
     }
 
     void SpawnObstacles() {
         int index = Random.Range(0, obstacles.Length);
-        GameObject obstacle;
+        GameObject obstacle = null;
 
         switch (index) {
             case 0:
-                obstacle = Instantiate(obstacles[index], highPos.position, Quaternion.identity);
+                obstacle = EagleOP.Instance?.GetEagle();
                 break;
             case 1:
-                obstacle = Instantiate(obstacles[index], lowPos.position, Quaternion.identity);
+                obstacle = FrogOP.Instance?.GetFrog();
                 break;
             case 2:
-                obstacle = Instantiate(obstacles[index], lowPos.position, Quaternion.identity);
+                obstacle = CrateOP.Instance?.GetCrate();
                 break;
         }
+
+        if (obstacle != null) {
+            SetSpawnPosition(obstacle, (index == 0) ? highPos : lowPos);
+        }
+    }
+
+    void SetSpawnPosition(GameObject obj, Transform pos) {
+        obj.transform.position = pos.position;
     }
 
     void SetTimeSpawn() {

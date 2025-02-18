@@ -26,6 +26,8 @@ class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+        if (GameManager.Instance.GetGameOver())
+            return;
         CheckGround();
         HandleJump();
         HandleDuck();
