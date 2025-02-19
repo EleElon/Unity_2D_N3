@@ -7,12 +7,14 @@ class GameManager : MonoBehaviour {
     [Header("---------- Variables ----------")]
     float gameSpeed = 5f;
     float gameSpeedUpScaleValue = 0.005f;
-    int score;
+    float score;
     bool isGamePaused = false, isGameOver = false;
 
     void Awake() {
         Instance = this;
-        UIManager.Instance.SetScoreText("Score: " + score);
+        UIManager.Instance.SetScoreText("Score: " + Mathf.FloorToInt(score));
+
+        IsPaused(true);
     }
 
     void FixedUpdate() {
@@ -21,6 +23,7 @@ class GameManager : MonoBehaviour {
             return;
         }
         UpScaleGameSpeed();
+        ScoreIncre();
     }
 
     void Update() {
@@ -30,6 +33,12 @@ class GameManager : MonoBehaviour {
     void HandleInput() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             EscapeKey();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            UIManager.Instance.SetStartGameText(false);
+            IsPaused(false);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.GetEggCrackSound());
         }
     }
 
@@ -70,7 +79,11 @@ class GameManager : MonoBehaviour {
 
     public void PlayAgain() {
         SceneManager.LoadScene("GamePlay");
-        IsPaused(false);
+        IsPaused(true);
+    }
+
+    public void QuitGame() {
+        Application.Quit();
     }
 
     internal float GetGameSpeed() {
@@ -93,8 +106,8 @@ class GameManager : MonoBehaviour {
         return isGameOver;
     }
 
-    internal void ScoreIncre(int scoreAmount) {
-        score += scoreAmount;
-        UIManager.Instance.SetScoreText("Score: " + score);
+    void ScoreIncre() {
+        score += Time.deltaTime * 9;
+        UIManager.Instance.SetScoreText("Score: " + Mathf.FloorToInt(score));
     }
 }

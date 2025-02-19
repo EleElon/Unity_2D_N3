@@ -7,6 +7,7 @@ class UIManager : MonoBehaviour {
 
     [Header("---------- Texts ----------")]
     [SerializeField] TextMeshProUGUI ScoreText;
+    [SerializeField] TextMeshProUGUI StartGameText;
 
     [Header("---------- Panels ----------")]
     [SerializeField] GameObject gamePausedPanel;
@@ -37,5 +38,10 @@ class UIManager : MonoBehaviour {
     internal void SetScoreText(string txt) {
         if (ScoreText)
             ScoreText.text = txt;
+    }
+
+    internal void SetStartGameText(bool state) {
+        if (StartGameText)
+            StartGameText.gameObject.SetActive(state);
     }
 }

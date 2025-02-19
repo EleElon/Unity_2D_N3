@@ -7,7 +7,7 @@ class PlayerController : MonoBehaviour {
 
     [Header("---------- Variables ----------")]
     float jumpForce = 15f;
-    bool isJumping, canJump, isRunning;
+    bool canJump, isRunning;
 
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Transform groundCheck;
@@ -37,12 +37,11 @@ class PlayerController : MonoBehaviour {
     void HandleJump() {
         if (Input.GetButtonDown("Jump") && canJump) {
             Jump();
-            isJumping = true;
         }
     }
 
     void HandleDuck() {
-        if (Input.GetKey(KeyCode.E) && !isJumping) {
+        if (Input.GetKey(KeyCode.E)) {
             IsDuck(true);
         }
         else {
@@ -52,11 +51,11 @@ class PlayerController : MonoBehaviour {
 
     void Jump() {
         _rb.linearVelocity = Vector2.up * jumpForce;
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.GetJumpSound());
     }
 
     void CheckGround() {
         canJump = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-        isJumping = false;
     }
 
     void IsDuck(bool state) { //FIXME: player can't allow to duck when jumping
@@ -64,6 +63,12 @@ class PlayerController : MonoBehaviour {
         _colliders[1].enabled = state;
 
         isRunning = !state;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Ground")) {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.GetTapSound());
+        }
     }
 
     void UpdateAnimations() {
