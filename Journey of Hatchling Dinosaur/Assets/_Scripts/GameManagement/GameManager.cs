@@ -8,13 +8,14 @@ class GameManager : MonoBehaviour {
     float gameSpeed = 5f;
     float gameSpeedUpScaleValue = 0.005f;
     float score;
-    bool isGamePaused = false, isGameOver = false;
+    bool isGamePaused = false, isGameOver = false, isGameStart;
 
     void Awake() {
         Instance = this;
         UIManager.Instance.SetScoreText("Score: " + Mathf.FloorToInt(score));
 
         IsPaused(true);
+        isGameStart = true;
     }
 
     void FixedUpdate() {
@@ -35,9 +36,10 @@ class GameManager : MonoBehaviour {
             EscapeKey();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return)) {
+        if (Input.GetKeyDown(KeyCode.Return) && isGameStart) {
             UIManager.Instance.SetStartGameText(false);
             IsPaused(false);
+            isGameStart = false;
             AudioManager.Instance.PlaySFX(AudioManager.Instance.GetEggCrackSound());
         }
     }
@@ -80,6 +82,7 @@ class GameManager : MonoBehaviour {
     public void PlayAgain() {
         SceneManager.LoadScene("GamePlay");
         IsPaused(true);
+        isGameStart = true;
     }
 
     public void QuitGame() {
